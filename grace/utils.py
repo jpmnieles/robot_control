@@ -52,5 +52,7 @@ class BaseMotorCtrl(object):
     @property
     def state(self):
         raise(NotImplementedError)
-
-
+    
+    def __exit__(self):
+        self.talker.unadvertise()
+        self.listener.unsubscribe()
