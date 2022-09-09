@@ -95,7 +95,7 @@ if __name__ == "__main__":
             date_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f") 
             fn_str = 'results/' + date_str + '_left_eye.png'
             cv.imwrite(fn_str, frame)
-            print("Saving Left Camera Image to: ", fn_str)
+            print("Saving Left Eye Camera Image to: ", fn_str)
         elif key == 114:  # letter r
             """Save right eye camera image. Press 'r' key
             """
@@ -104,7 +104,7 @@ if __name__ == "__main__":
             date_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f") 
             fn_str = 'results/' + date_str + '_right_eye.png'
             cv.imwrite(fn_str, frame)
-            print("Saving Left Camera Image to: ", fn_str)
+            print("Saving Right Eye Camera Image to: ", fn_str)
         elif key == 115:  # letter s
             """Save both left & right eye camera image. Press 'r' key
             """
@@ -117,8 +117,8 @@ if __name__ == "__main__":
             r_fn_str = 'results/' + date_str + '_right_eye.png'
             cv.imwrite(l_fn_str, l_frame)
             cv.imwrite(r_fn_str, r_frame)
-            print("Saving Left Camera Image to: ", l_fn_str)
-            print("Saving Right Camera Image to: ", r_fn_str)
+            print("Saving Left Eye Camera Image to: ", l_fn_str)
+            print("Saving Right Eye Camera Image to: ", r_fn_str)
         elif key == 27:  # Esc
             """Execute end of program. Press 'esc' key to escape program
             """
