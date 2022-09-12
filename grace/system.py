@@ -35,6 +35,8 @@ class Grace(object):
             self.l_eye_pan.move([angles[0]])
         else:
             self.l_eye_pan_tilt.move(list(angles))
+        angles = self.state
+        return (angles[0], angles[2])
             
     def move_right_eye(self, angles: tuple):
         """Moves the right eye motor with pan and/or tilt values.
@@ -51,6 +53,8 @@ class Grace(object):
             self.r_eye_pan.move([angles[0]])
         else:
             self.r_eye_pan_tilt.move(list(angles))
+        angles = self.state
+        return (angles[1], angles[2])
 
     def move_both_eyes(self, angles: tuple):
         """Moves both the left and right eye motors with pan and/or tilt values.
@@ -68,6 +72,20 @@ class Grace(object):
             self.lr_eyes_pan.move([angles[0],angles[1]])
         else:
             self.lr_eyes_pan_tilt.move(list(angles))
+        angles = self.state
+        return angles
+    
+    @property
+    def state(self):
+        temp = self.lr_eyes_pan_tilt.state
+        angles = (temp[0]['actual'], temp[1]['actual'], temp[2]['actual'])
+        if None in angles:
+            while(not None in angles):
+                temp = self.lr_eyes_pan_tilt.state
+                angles = (temp[0]['actual'], temp[1]['actual'], temp[2]['actual'])
+                print('Repeat')
+        self._state = angles
+        return self._state
 
 
 if __name__ == "__main__":
@@ -75,7 +93,13 @@ if __name__ == "__main__":
     grace = Grace(degrees=True)
 
     # Left Eye Control
-    grace.move_left_eye((-19, None))
+    state = grace.move_left_eye((-19, -19))
+    print(state)
 
     # Right Eye Control
-    grace.move_right_eye((-19, -19))
+    state = grace.move_right_eye((-19, None))
+    print(state)
+
+    # Both Eyes Control
+    state = grace.move_both_eyes((0, 0, 0))
+    print(state)
