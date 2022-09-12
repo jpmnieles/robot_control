@@ -38,7 +38,8 @@ class Grace(object):
             self.l_eye_pan_tilt.move(list(angles))
         angles = self.state
         return (angles[0], angles[2])
-            
+
+
     def move_right_eye(self, angles: tuple):
         """Moves the right eye motor with pan and/or tilt values.
 
@@ -56,6 +57,7 @@ class Grace(object):
             self.r_eye_pan_tilt.move(list(angles))
         angles = self.state
         return (angles[1], angles[2])
+
 
     def move_both_eyes(self, angles: tuple):
         """Moves both the left and right eye motors with pan and/or tilt values.
@@ -76,9 +78,47 @@ class Grace(object):
         angles = self.state
         return angles
 
+    
+    def rel_move_left_eye(self, delta: tuple):
+        temp = self._state
+        if delta[0]==0:
+            angles = self.move_left_eye((None, temp[2]+delta[1]))
+        elif delta[1]==0:
+            angles = self.move_left_eye((temp[0]+delta[0], None))
+        else:
+            angles = self.move_left_eye((temp[0]+delta[0], temp[2]+delta[1]))
+        return angles
+
+
+    def rel_move_right_eye(self, delta: tuple):
+        temp = self._state
+        if delta[0]==0:
+            angles = self.move_right_eye((None, temp[2]+delta[1]))
+        elif delta[1]==0:
+            angles = self.move_right_eye((temp[1]+delta[0], None))
+        else:
+            angles = self.move_right_eye((temp[1]+delta[0], temp[2]+delta[1]))
+        return angles
+
+
+    def rel_move_both_eyes(self, delta: tuple):
+        temp = self._state
+        if delta[0]==0:
+            self.rel_move_right_eye((delta[1], delta[2]))
+        elif delta[1]==0:
+            self.rel_move_left_eye((delta[0], delta[2]))
+        elif delta[2]==0:
+            self.move_both_eyes((temp[0]+delta[0], temp[1]+delta[1], None))
+        else:
+            self.move_both_eyes((temp[0]+delta[0], temp[1]+delta[1], temp[2]+delta[2]))   
+        angles = self.state
+        return (angles[0], angles[1], angles[2])
+
+
     def reset_eyes(self):
         angles = self.move_both_eyes((0, 0, 0))
         return angles
+
     
     @property
     def state(self):
