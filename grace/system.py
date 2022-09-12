@@ -75,6 +75,10 @@ class Grace(object):
         angles = self.state
         return angles
     
+    def reset_eyes(self):
+        angles = self.move_both_eyes((0, 0, 0))
+        return angles
+    
     @property
     def state(self):
         temp = self.lr_eyes_pan_tilt.state
@@ -101,5 +105,5 @@ if __name__ == "__main__":
     print(state)
 
     # Both Eyes Control
-    state = grace.move_both_eyes((0, 0, 0))
+    state = grace.reset_eyes()
     print(state)
