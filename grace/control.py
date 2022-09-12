@@ -76,11 +76,21 @@ if __name__ == "__main__":
     grace = ROSClient()
     
     # Left and Right Eye Control
-    lr_pan = MultiMotorCtrl(grace.ros_client, ['EyeTurnLeft', 'EyeTurnRight'])
-    lr_pan.move([-10, 10])
+    lr_pan = MultiMotorCtrl(grace.ros_client, ['EyeTurnLeft', 'EyeTurnRight', 'EyesUpDown'])
+    lr_pan.move([-19, -19, -19])
     print(lr_pan.state)
-    
+
     # Right Arm Control
     r_arm = MultiMotorCtrl(grace.ros_client, ['RightShoulderPitch'])
     r_arm.move([-10])
+    print(r_arm.state)
+
+    # Left and Right Eye Control
+    lr_pan = MultiMotorCtrl(grace.ros_client, ['EyeTurnLeft', 'EyeTurnRight', 'EyesUpDown'])
+    lr_pan.move([0, 0, 0])
+    print(lr_pan.state)
+
+    # Right Arm Control
+    r_arm = MultiMotorCtrl(grace.ros_client, ['RightShoulderPitch'])
+    r_arm.move([0])
     print(r_arm.state)
