@@ -3,10 +3,10 @@
 
 
 import time
-from math import radians
+from math import radians, pi
 import roslibpy
 
-from .utils import ROSClient, BaseMotorCtrl
+from .utils import ROSClient, BaseMotorCtrl, motors_dict
 
 
 class MultiMotorCtrl(BaseMotorCtrl):
@@ -17,8 +17,26 @@ class MultiMotorCtrl(BaseMotorCtrl):
         self.actuator_list = actuator_list
         self.quantity = len(self.actuator_list)
         self.degrees = degrees
-        self._state_list = [{'target': None, 'position': None, 'load': None, 'timestamp': None} for _ in range(self.quantity)]
-    
+        self._motor_limits = {actuator: self._capture_limits(actuator) for actuator in actuator_list}
+        self._state_list = [{'target': None, 'actual':None, 'position': None, 'load': None, 'timestamp': None} for _ in range(self.quantity)]
+
+
+    def _capture_limits(self, actuator):
+        min = motors_dict[actuator]['motor_min']
+        init = motors_dict[actuator]['init']
+        max = motors_dict[actuator]['motor_max']
+        limits = {'min': min, 'init': init, 'max': max}
+        return limits
+
+
+    def _convert_to_angle(self, actuator, position):
+        if self.degrees:
+            unit = 360
+        else:
+            unit = pi
+        angle = ((position-self._motor_limits[actuator]['init'])/4096)*unit
+        return angle
+
 
     def move(self, position):
         for i in range(self.quantity):
@@ -34,6 +52,8 @@ class MultiMotorCtrl(BaseMotorCtrl):
         for actuator in msg['motor_states']:
             for i in range(self.quantity):
                 if actuator['name'] == self.actuator_list[i]:
+                    self._state_list[i]['actual'] = self._convert_to_angle(
+                        self.actuator_list[i], actuator['position'])
                     self._state_list[i]['position'] = actuator['position']
                     self._state_list[i]['load'] = actuator['load']
                     self._state_list[i]['timestamp'] = actuator['timestamp']
