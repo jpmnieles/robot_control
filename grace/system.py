@@ -18,6 +18,7 @@ class Grace(object):
         self.l_eye_pan_tilt = MultiMotorCtrl(self.ros.ros_client, ['EyeTurnLeft', 'EyesUpDown'], degrees)
         self.r_eye_pan_tilt = MultiMotorCtrl(self.ros.ros_client, ['EyeTurnRight', 'EyesUpDown'], degrees)
         self.lr_eyes_pan_tilt = MultiMotorCtrl(self.ros.ros_client, ['EyeTurnLeft', 'EyeTurnRight', 'EyesUpDown'], degrees)
+        self.reset_eyes()
     
 
     def move_left_eye(self, angles: tuple):
@@ -74,7 +75,7 @@ class Grace(object):
             self.lr_eyes_pan_tilt.move(list(angles))
         angles = self.state
         return angles
-    
+
     def reset_eyes(self):
         angles = self.move_both_eyes((0, 0, 0))
         return angles
