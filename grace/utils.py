@@ -2,8 +2,12 @@
 """
 
 
-import roslibpy
+import os
+import sys
+sys.path.append(os.path.join(os.path.realpath(__file__), '..\..'))
 
+import roslibpy
+import yaml
 
 
 class ROSClient(object):
@@ -56,3 +60,21 @@ class BaseMotorCtrl(object):
     def __exit__(self):
         self.talker.unadvertise()
         self.listener.unsubscribe()
+
+
+# Loading Motors Yaml File
+with open("config/head/motors.yaml", "r") as stream:
+    try:
+        head_dict = yaml.safe_load(stream)
+    except yaml.YAMLError as error:
+        print(error)
+
+with open("config/body/motors.yaml", "r") as stream:
+    try:
+        body_dict = yaml.safe_load(stream)
+    except yaml.YAMLError as error:
+        print(error)
+
+motors_dict = {}
+motors_dict.update(head_dict['motors'])
+motors_dict.update(body_dict['motors'])
