@@ -155,7 +155,7 @@ class BaselineCapture(object):
         self.df_x.to_csv(os.path.join(filepath, "pixel_x_" + filename + ".csv"))
         self.df_y.to_csv(os.path.join(filepath, "pixel_y_" + filename + ".csv"))
         self.df_pan.to_csv(os.path.join(filepath, "position_pan_" + filename + ".csv"))
-        self.df_tilt.to_csv(os.path.join(filepath, "posiiton_tilt_" + filename + ".csv"))
+        self.df_tilt.to_csv(os.path.join(filepath, "position_tilt_" + filename + ".csv"))
         print('Data save in:', filepath)
 
 
