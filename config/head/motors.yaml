@@ -187,17 +187,17 @@ motors:
     default: 0
     group: Eyes
     hardware: feetech
-    init: 1900
+    init: 2025
     labelleft: EyeTurnLeft
-    max: 0.3374757733348411
-    min: -0.47553404424454876
+    max: 0.14572817484913592
+    min: -0.6672816427302539
     motor_id: 14
     motor_max: 2120
     motor_min: 1590
     name: EyeTurnLeft
     pau:
       function:
-      - imin: 0.5849056603773585
+      - imin: 0.8207547169811321
         name: weightedsum
         terms:
         - {imax: 1, max: 0.44, min: 0}
@@ -214,17 +214,17 @@ motors:
     default: 0
     group: Eyes
     hardware: feetech
-    init: 2550
+    init: 2527
     labelleft: EyeTurnRight
-    max: 0.4141748127291231
-    min: -0.3374757733348411
+    max: 0.44945637085049284
+    min: -0.3021942152134713
     motor_id: 15
     motor_max: 2820
     motor_min: 2330
     name: EyeTurnRight
     pau:
       function:
-      - imin: 0.4489795918367347
+      - imin: 0.4020408163265306
         name: weightedsum
         terms:
         - {imax: 1, max: 0.44, min: 0}
@@ -667,14 +667,14 @@ motors:
     init: 2430
     labelleft: UpperLidLeft
     max: 0.30679615757712825
-    min: -1.2732040539450822
+    min: -0.7501166052760785
     motor_id: 10
     motor_max: 2630
-    motor_min: 1600
+    motor_min: 1941
     name: UpperLidLeft
     pau:
       function:
-      - imin: 0.8058252427184466
+      - imin: 0.7097242380261248
         name: weightedsum
         terms:
         - {imax: 0, max: 1, min: 0}
@@ -693,15 +693,15 @@ motors:
     hardware: feetech
     init: 1800
     labelleft: UpperLidRight
-    max: 1.2732040539450822
+    max: 0.7501166052760785
     min: -0.30679615757712825
     motor_id: 11
-    motor_max: 2630
+    motor_max: 2289
     motor_min: 1600
     name: UpperLidRight
     pau:
       function:
-      - imin: 0.1941747572815534
+      - imin: 0.29027576197387517
         name: weightedsum
         terms:
         - {imax: 0, max: 1, min: 0}
