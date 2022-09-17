@@ -78,6 +78,10 @@ class GraceAlign(object):
             img = cv.putText(img=img, text=str(rmat[2]), org=(5, 470), fontFace=cv.FONT_HERSHEY_SIMPLEX,
                             fontScale=0.5, color = (0, 0, 255), thickness=2)
 
+            # Putting the Center
+            img = cv.line(img, (320, 0), (320, 480), (0,255,0))
+            img = cv.line(img, (0, 240), (640, 240), (0,255,0))
+
             # Checking for Alignment
             error = self.rmse(self.NO_ROTATION, rmat)
             img = cv.putText(img=img, text=f"RMSE: %.4f" % (error), org=(520, 470), fontFace=cv.FONT_HERSHEY_SIMPLEX,
