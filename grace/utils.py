@@ -63,13 +63,13 @@ class BaseMotorCtrl(object):
 
 
 # Loading Motors Yaml File
-with open("config/head/motors.yaml", "r") as stream:
+with open(os.path.join(os.path.realpath(__file__), '../..', 'config/head/motors.yaml'), "r") as stream:
     try:
         head_dict = yaml.safe_load(stream)
     except yaml.YAMLError as error:
         print(error)
 
-with open("config/body/motors.yaml", "r") as stream:
+with open(os.path.join(os.path.realpath(__file__), '../..', 'config/body/motors.yaml'), "r") as stream:
     try:
         body_dict = yaml.safe_load(stream)
     except yaml.YAMLError as error:
