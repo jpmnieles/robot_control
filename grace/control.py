@@ -5,6 +5,7 @@
 import time
 from math import radians, pi
 import roslibpy
+import numpy as np
 
 from .utils import ROSClient, BaseMotorCtrl, motors_dict
 
@@ -18,8 +19,8 @@ class MultiMotorCtrl(BaseMotorCtrl):
         self.quantity = len(self.actuator_list)
         self.degrees = degrees
         self._motor_limits = {actuator: self._capture_limits(actuator) for actuator in actuator_list}
-        self._state_list = [{'target': None, 'actual':None, 'position': None, 'load': None, 'timestamp': None} for _ in range(self.quantity)]
-
+        self._state_list = [{'target': None, 'actual':None, 'goal': None, 'position': None, 'load': None, 'timestamp': None} for _ in range(self.quantity)]
+        self.state
 
     def _capture_limits(self, actuator):
         min = motors_dict[actuator]['motor_min']
@@ -37,15 +38,40 @@ class MultiMotorCtrl(BaseMotorCtrl):
         angle = ((position-self._motor_limits[actuator]['init'])/4096)*unit
         return angle
 
+    
+    def _convert_to_motor_int(self, actuator, angle):
+        if self.degrees:
+            unit = 360
+        else:
+            unit = pi
+        angle = round((angle/unit)*4096 + self._motor_limits[actuator]['init'])
+        return angle
+
+
+    def _percent_error(self, actual, measured):
+        error = 100 * abs((np.array(actual) - np.array(measured)) / np.array(actual))
+        return error
+
 
     def move(self, position):
         for i in range(self.quantity):
             self._state_list[i]['target'] = position[i]
+            self._state_list[i]['goal'] = self._convert_to_motor_int(
+                self.actuator_list[i], position[i])
             if self.degrees:
                 position[i] = radians(position[i])
-        self.talker.publish(roslibpy.Message({'names': self.actuator_list,
-                                              'values': position}))
-        time.sleep(0.2)
+        
+        while(True):
+            self.talker.publish(roslibpy.Message({'names': self.actuator_list,
+                                                'values': position}))
+            time.sleep(0.75)
+            curr_state = self.state
+            
+            goals = [curr_state[i]['goal'] for i in range(self.quantity)]
+            positions = [curr_state[i]['position'] for i in range(self.quantity)]
+            percent_error = self._percent_error(goals, positions)
+            if all(percent_error<20):
+                break
 
 
     def _capture_state(self, msg):
@@ -61,9 +87,7 @@ class MultiMotorCtrl(BaseMotorCtrl):
 
     @property
     def state(self):
-        self.listener.subscribe(self._capture_state)
-        time.sleep(0.2)
-        self.listener.unsubscribe()
+        self.listener.subscribe(self._capture_state)     
         return self._state_list
     
     @property
