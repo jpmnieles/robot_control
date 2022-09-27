@@ -47,7 +47,7 @@ class BaselineImageCapture(object):
         #                                   ['UpperLidLeft', 'UpperLidRight', 'LowerLidLeft', 'LowerLidRight'],
         #                                   degrees=True)
         # self.eyelid_ctrl.move([18, -18, -44, 44])
-
+        self.neck = MultiMotorCtrl(self.grace.ros.ros_client, ['NeckRotation', 'LowerGimbalLeft', 'LowerGimbalRight'])
         self.criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
         self.data = {
             "trials": None,
@@ -66,6 +66,8 @@ class BaselineImageCapture(object):
             "origin_tilt_position": None,
             "chessboard_points": None,
             "images": None,
+            "eyes": None,
+            "neck": None
         }
 
 
@@ -88,7 +90,8 @@ class BaselineImageCapture(object):
         self.data["origin_tilt_position"] = self._get_init(self.trials, len(self.horz_sweep), len(self.vert_sweep))
         self.data["chessboard_points"] = self._get_init(self.trials, len(self.horz_sweep), len(self.vert_sweep))
         self.data["images"] = self._get_init(self.trials, len(self.horz_sweep), len(self.vert_sweep))
-
+        self.data["eyes"] = self._get_init(self.trials, len(self.horz_sweep), len(self.vert_sweep))
+        self.data["neck"] = self._get_init(self.trials, len(self.horz_sweep), len(self.vert_sweep))
 
     def set_delta(self, delta):
         self.delta = delta
@@ -134,6 +137,7 @@ class BaselineImageCapture(object):
 
 
     def sweep_positions(self):
+        self.grace.reset_eyes()
         self._init_data()
         for trial in range(self.trials):
             for row,vert in enumerate(self.vert_sweep):
@@ -168,6 +172,8 @@ class BaselineImageCapture(object):
                     self.data["tilt_position"][trial][row][col] = state[1]
                     self.data["chessboard_points"][trial][row][col] = self.get_chessboard_points(img)
                     self.data["images"][trial][row][col] = img
+                    self.data["eyes"][trial][row][col]  = self.grace.lr_eyes_pan_tilt.state
+                    self.data["neck"][trial][row][col]  = self.neck.state
 
                     # cv.imshow('Img', img)  # Debug
                     # cv.waitKey(500)  # Debug
