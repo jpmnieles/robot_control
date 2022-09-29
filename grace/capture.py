@@ -106,7 +106,7 @@ if __name__ == "__main__":
             cv.imwrite(fn_str, frame)
             print("Saving Right Eye Camera Image to: ", fn_str)
         elif key == 115:  # letter s
-            """Save both left & right eye camera image. Press 'r' key
+            """Save both left & right eye camera image. Press 's' key
             """
             l_frame = left_cam.frame
             r_frame = right_cam.frame
