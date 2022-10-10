@@ -9,13 +9,13 @@ motors:
     default: 0
     group: LeftArm
     hardware: feetech
-    init: 589
+    init: 3549
     labelleft: LeftElbowPitch
     max: 0.0015339807878856412
     min: -0.0015339807878856412
     motor_id: 83
-    motor_max: 590
-    motor_min: 588
+    motor_max: 3550
+    motor_min: 3548
     name: LeftElbowPitch
     pau:
       function:
@@ -55,12 +55,12 @@ motors:
     default: 0
     group: LeftArm
     hardware: feetech
-    init: 1200
+    init: 1001
     labelleft: LeftShoulderPitch
-    max: 0.30679615757712825
-    min: -0.30679615757712825
+    max: 0.0015339807878856412
+    min: -0.0015339807878856412
     motor_id: 80
-    motor_max: 1400
+    motor_max: 1002
     motor_min: 1000
     name: LeftShoulderPitch
     pau:
