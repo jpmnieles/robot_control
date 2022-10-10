@@ -187,17 +187,17 @@ motors:
     default: 0
     group: Eyes
     hardware: feetech
-    init: 2025
+    init: 1934
     labelleft: EyeTurnLeft
-    max: 0.14572817484913592
-    min: -0.6672816427302539
+    max: 0.28532042654672923
+    min: -0.5276893910326605
     motor_id: 14
     motor_max: 2120
     motor_min: 1590
     name: EyeTurnLeft
     pau:
       function:
-      - imin: 0.8207547169811321
+      - imin: 0.6490566037735849
         name: weightedsum
         terms:
         - {imax: 1, max: 0.44, min: 0}
@@ -214,17 +214,17 @@ motors:
     default: 0
     group: Eyes
     hardware: feetech
-    init: 2527
+    init: 2493
     labelleft: EyeTurnRight
-    max: 0.44945637085049284
-    min: -0.3021942152134713
+    max: 0.5016117176386047
+    min: -0.2500388684253595
     motor_id: 15
     motor_max: 2820
     motor_min: 2330
     name: EyeTurnRight
     pau:
       function:
-      - imin: 0.4020408163265306
+      - imin: 0.3326530612244898
         name: weightedsum
         terms:
         - {imax: 1, max: 0.44, min: 0}
