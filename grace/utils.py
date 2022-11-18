@@ -39,6 +39,10 @@ def generate_triangle_wave(init_amp, min_amp, max_amp, step_size, num_cycles, in
     return np.array(triangle_wave)
 
 
+def rmse(predictions, targets):
+    return np.sqrt(((predictions - targets) ** 2).mean())
+
+
 class ROSClient(object):
     
 
