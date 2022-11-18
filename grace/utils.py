@@ -6,8 +6,37 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.realpath(__file__), '..\..'))
 
+import numpy as np
 import roslibpy
 import yaml
+
+
+def generate_triangle_wave(init_amp, min_amp, max_amp, step_size, num_cycles, include_init):
+    """Generates a triangular wave with positive and negative peaks
+
+    Args:
+        init_amp (float): initial amplitude
+        min_amp (float): minimum amplitude peak
+        max_amp (float): maximum amplitude peak
+        step_size (float): amplitude resolution
+        num_cycles (int): number of cycles of the triangular wave
+        include_init (bool_): will or will not include initial amplitude in the end of waveform
+
+    Returns:
+        numpy array:
+    """
+    int_init_amp = round(init_amp/step_size)
+    int_max_amp = round(max_amp/step_size)
+    int_min_amp = round(min_amp/step_size)
+    int_sweep = list(range(int_init_amp, int_max_amp+1)) + list(range(int_max_amp-1, int_min_amp-1, -1)) + list(range(int_min_amp+1, int_init_amp))
+    single_sweep = [step_size*x for x in int_sweep]
+
+    triangle_wave = []
+    for _ in range(num_cycles):
+        triangle_wave += single_sweep
+    if include_init:
+        triangle_wave.append(int_init_amp*step_size)
+    return np.array(triangle_wave)
 
 
 class ROSClient(object):
