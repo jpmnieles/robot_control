@@ -61,6 +61,7 @@ class MultiMotorCtrl(BaseMotorCtrl):
             if self.degrees:
                 position[i] = radians(position[i])
         
+        ctr = 1
         while(True):
             self.talker.publish(roslibpy.Message({'names': self.actuator_list,
                                                 'values': position}))
@@ -72,6 +73,11 @@ class MultiMotorCtrl(BaseMotorCtrl):
             percent_error = self._percent_error(goals, positions)
             if all(percent_error<5):
                 break
+            
+            if ctr == 100:
+                raise(Exception("Motor command timeout. Servo motors not found"))
+            else:
+                ctr+=1
 
 
     def _capture_state(self, msg):
