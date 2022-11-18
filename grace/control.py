@@ -80,6 +80,19 @@ class MultiMotorCtrl(BaseMotorCtrl):
                 ctr+=1
 
 
+    def direct_move(self, position):
+        for i in range(self.quantity):
+            self._state_list[i]['target'] = position[i]
+            self._state_list[i]['goal'] = self._convert_to_motor_int(
+                self.actuator_list[i], position[i])
+            if self.degrees:
+                position[i] = radians(position[i])
+        
+        self.talker.publish(roslibpy.Message({'names': self.actuator_list,
+                                              'values': position}))
+        time.sleep(0.1)  # TODO: Check if this needs time.sleep()
+
+
     def _capture_state(self, msg):
         for actuator in msg['motor_states']:
             for i in range(self.quantity):
