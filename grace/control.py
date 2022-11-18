@@ -70,7 +70,7 @@ class MultiMotorCtrl(BaseMotorCtrl):
             goals = [curr_state[i]['goal'] for i in range(self.quantity)]
             positions = [curr_state[i]['position'] for i in range(self.quantity)]
             percent_error = self._percent_error(goals, positions)
-            if all(percent_error<20):
+            if all(percent_error<5):
                 break
 
 
