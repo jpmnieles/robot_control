@@ -130,7 +130,20 @@ class Grace(object):
                 angles = (temp[0]['actual'], temp[1]['actual'], temp[2]['actual'])
                 print('Repeat')
         self._state = angles
-        return self._state
+        return self._state 
+    
+
+    @property
+    def state_with_time(self):
+        temp = self.lr_eyes_pan_tilt.state
+        angles = (temp[0]['actual'], temp[1]['actual'], temp[2]['actual'])
+        if None in angles:
+            while(not None in angles):
+                temp = self.lr_eyes_pan_tilt.state
+                angles = (temp[0]['actual'], temp[1]['actual'], temp[2]['actual'])
+                print('Repeat')
+        self._state = angles
+        return self._state, temp['timestamp']
 
 
 if __name__ == "__main__":
