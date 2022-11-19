@@ -148,7 +148,8 @@ class Grace(object):
     
 
     def slow_centering_eyes(self):
-        self.slow_move_left_eye_pan(angle=0, step_size=0.0879, time_interval=0.015)
+        angles = self.slow_move_left_eye_pan(angle=0, step_size=0.0879, time_interval=0.015)
+        return angles
 
 
     def reset_eyes(self):
