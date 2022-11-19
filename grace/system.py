@@ -115,7 +115,7 @@ class Grace(object):
         return (angles[0], angles[1], angles[2])
 
 
-    def direct_move_left_eye(self, angles: tuple):  # TODO: Test the direct move_left_eye function
+    def direct_move_left_eye(self, angles: tuple):
         """Directly moves the left eye motor with pan and/or tilt values.
         
         Pan only: angles = (pan, None)

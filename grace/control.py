@@ -90,7 +90,6 @@ class MultiMotorCtrl(BaseMotorCtrl):
         
         self.talker.publish(roslibpy.Message({'names': self.actuator_list,
                                               'values': position}))
-        time.sleep(0.1)  # TODO: Check if this needs time.sleep()
 
 
     def _capture_state(self, msg):
