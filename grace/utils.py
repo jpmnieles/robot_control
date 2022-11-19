@@ -39,11 +39,11 @@ def generate_triangle_wave(init_amp, min_amp, max_amp, step_size, num_cycles, in
     return np.array(triangle_wave)
 
 
-def generate_target_wave(target_amp, min_amp, step_size, num_cycles):
+def generate_target_wave(target_amp, init_amp, step_size, num_cycles):
     int_target_amp = round(target_amp/step_size)
-    int_min_amp = round(min_amp/step_size)
-    int_sweep = [int_min_amp]*2 + list(range(int_min_amp, int_target_amp+1))
-    addtl_sweep = list(range(int_target_amp-1, int_min_amp-1, -1)) + list(range(int_min_amp+1, int_target_amp+1))
+    int_init_amp = round(init_amp/step_size)
+    int_sweep = [int_init_amp]*2 + list(range(int_init_amp, int_target_amp+1))
+    addtl_sweep = list(range(int_target_amp-1, int_init_amp-1, -1)) + list(range(int_init_amp+1, int_target_amp+1))
 
     triangle_wave = int_sweep
     if num_cycles>1:
