@@ -61,6 +61,7 @@ class GraceAlign(object):
         ret, corners = cv.findChessboardCorners(gray, (9,6),None)
         if ret == True:
             corners2 = cv.cornerSubPix(gray,corners, (11,11), (-1,-1), self.criteria)
+            s_corners = corners2.squeeze()
             
             # Find the rotation and translation vectors.
             ret, rvecs, tvecs = cv.solvePnP(self.objp, corners2, mtx, dist)
@@ -82,12 +83,16 @@ class GraceAlign(object):
             img = cv.line(img, (320, 0), (320, 480), (0,255,0))
             img = cv.line(img, (0, 240), (640, 240), (0,255,0))
 
+            # 9x6 Chessboard Center Position
+            img = cv.putText(img=img, text=f"{s_corners[21]}", org=(200, 50), fontFace=cv.FONT_HERSHEY_SIMPLEX,
+                                fontScale=0.6, color = (0, 255, 0), thickness=2)
+
             # Checking for Alignment
             error = self.rmse(self.NO_ROTATION, rmat)
             img = cv.putText(img=img, text=f"RMSE: %.4f" % (error), org=(520, 470), fontFace=cv.FONT_HERSHEY_SIMPLEX,
                             fontScale=0.5, color = (0, 0, 255), thickness=2)
             if error < self.epsilon:
-                img = cv.putText(img=img, text="ALIGNED", org=(290, 30), fontFace=cv.FONT_HERSHEY_SIMPLEX,
+                img = cv.putText(img=img, text="ALIGNED", org=(260, 30), fontFace=cv.FONT_HERSHEY_SIMPLEX,
                                 fontScale=1, color = (0, 255, 0), thickness=2)
         return img
 
