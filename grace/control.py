@@ -7,7 +7,7 @@ from math import radians, pi
 import roslibpy
 import numpy as np
 
-from .utils import ROSClient, BaseMotorCtrl, motors_dict
+from .utils import ROSClient, BaseMotorCtrl, generate_target_wave, motors_dict
 
 
 class MultiMotorCtrl(BaseMotorCtrl):
@@ -90,6 +90,19 @@ class MultiMotorCtrl(BaseMotorCtrl):
         
         self.talker.publish(roslibpy.Message({'names': self.actuator_list,
                                               'values': position}))
+    
+
+    def slow_move(self, position, step_size, time_interval, num_repeat=1):  # TODO: Only limited to only 1 motor only. Extend to multimotor
+        self.state
+        curr_position = self._state_list[0]['actual']
+        if position[0] > curr_position:
+            sign = 1
+        else:
+            sign = -1
+        target_wave = generate_target_wave(target_amp=position[0], init_amp=curr_position, step_size=sign*step_size, num_cycles=num_repeat)
+        for cmd in target_wave:
+            time.sleep(time_interval)
+            self.direct_move([cmd])
 
 
     def _capture_state(self, msg):

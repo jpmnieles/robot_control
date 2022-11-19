@@ -2,6 +2,7 @@
 """
 
 
+import time
 from .control import MultiMotorCtrl
 from .utils import ROSClient
 
@@ -130,6 +131,20 @@ class Grace(object):
             self.l_eye_pan.direct_move([angles[0]])
         else:
             self.l_eye_pan_tilt.direct_move(list(angles))
+
+
+    def slow_move_left_eye_pan(self, angle, step_size, time_interval):  # TODO: Extend slow movements to tilt motor
+        """Slowly moves the left eye motor with pan values.
+
+        Args:
+            angle (float): target angle
+            step_size (float): amplitude resolution
+            time_interval (float): time duration in between two consecutive motor commands
+        """
+        self.l_eye_pan.slow_move([angle], step_size, time_interval, num_repeat=1)
+        time.sleep(0.75)
+        angles = self.state
+        return (angles[0], angles[2])
 
 
     def reset_eyes(self):
