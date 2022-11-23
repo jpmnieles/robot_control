@@ -6,6 +6,7 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.realpath(__file__), '..\..'))
 
+import cv2 as cv
 import numpy as np
 import roslibpy
 import yaml
@@ -42,7 +43,7 @@ def generate_triangle_wave(init_amp, min_amp, max_amp, step_size, num_cycles, in
 def generate_target_wave(target_amp, init_amp, step_size, num_cycles):
     int_target_amp = round(target_amp/step_size)
     int_init_amp = round(init_amp/step_size)
-    int_sweep = [int_init_amp]*2 + list(range(int_init_amp, int_target_amp+1))
+    int_sweep = list(range(int_init_amp, int_target_amp+1))
     addtl_sweep = list(range(int_target_amp-1, int_init_amp-1, -1)) + list(range(int_init_amp+1, int_target_amp+1))
 
     triangle_wave = int_sweep
@@ -55,6 +56,21 @@ def generate_target_wave(target_amp, init_amp, step_size, num_cycles):
 
 def rmse(predictions, targets):
     return np.sqrt(((predictions - targets) ** 2).mean())
+
+
+def get_chessboard_points(img):
+    criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    ret, corners = cv.findChessboardCorners(gray, (9,6),None)
+    if ret == True:
+        r_corners = cv.cornerSubPix(gray, corners, (11,11), (-1,-1), criteria)
+        s_corners = r_corners.squeeze()
+    return s_corners
+
+
+def get_center_chessboard_point(img):
+    corners = get_chessboard_points(img)
+    return corners[21].tolist()
 
 
 class ROSClient(object):
