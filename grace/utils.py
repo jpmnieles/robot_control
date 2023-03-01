@@ -73,6 +73,11 @@ def get_center_chessboard_point(img):
     return corners[21].tolist()
 
 
+def get_chessboard_point(img, i):
+    corners = get_chessboard_points(img)
+    return corners[i].tolist()
+
+
 class ROSClient(object):
     
 
