@@ -4,7 +4,7 @@ motors:
     motor_id: 53, motor_max: 2700, motor_min: 1700, name: Camera, protocol: 0, sort_no: 104,
     speed: 0, topic: feetechTorso, transmission: 0.01}
   LeftElbowPitch:
-    acceleration: 200
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: LeftArm
@@ -23,11 +23,11 @@ motors:
       parser: {joint: L_Elbow, name: armsangles}
     protocol: 0
     sort_no: -76
-    speed: 4000
+    speed: 100
     topic: feetechLarm
     transmission: 1
   LeftElbowYaw:
-    acceleration: 200
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: LeftArm
@@ -46,11 +46,11 @@ motors:
       parser: {joint: L_Wrist_Yaw, name: armsangles}
     protocol: 1
     sort_no: -75
-    speed: 4000
+    speed: 100
     topic: feetechLarm
     transmission: 1
   LeftShoulderPitch:
-    acceleration: 100
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: LeftArm
@@ -69,11 +69,11 @@ motors:
       parser: {joint: L_Shoulder_Pitch, name: armsangles}
     protocol: 0
     sort_no: -79
-    speed: 1000
+    speed: 100
     topic: feetechLarm
     transmission: 0.01
   LeftShoulderRoll:
-    acceleration: 100
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: LeftArm
@@ -92,11 +92,11 @@ motors:
       parser: {joint: L_Shoulder_Roll, name: armsangles}
     protocol: 0
     sort_no: -78
-    speed: 1000
+    speed: 100
     topic: feetechLarm
     transmission: 1
   LeftShoulderYaw:
-    acceleration: 200
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: LeftArm
@@ -115,7 +115,7 @@ motors:
       parser: {joint: L_Shoulder_Yaw, name: armsangles}
     protocol: 0
     sort_no: -77
-    speed: 4000
+    speed: 100
     topic: feetechLarm
     transmission: 1
   LowerGimbalLeft:
@@ -191,7 +191,7 @@ motors:
     topic: feetechTorso
     transmission: 1
   RightElbowPitch:
-    acceleration: 200
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: RightArm
@@ -210,11 +210,11 @@ motors:
       parser: {joint: R_Elbow, name: armsangles}
     protocol: 0
     sort_no: -96
-    speed: 4000
+    speed: 100
     topic: feetechRarm
     transmission: 1
   RightElbowYaw:
-    acceleration: 200
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: RightArm
@@ -233,7 +233,7 @@ motors:
       parser: {joint: R_Wrist_Yaw, name: armsangles}
     protocol: 1
     sort_no: -95
-    speed: 4000
+    speed: 100
     topic: feetechRarm
     transmission: 1
   RightFingerSpread:
@@ -260,7 +260,7 @@ motors:
     topic: rhand
     transmission: 1
   RightIndexFinger:
-    acceleration: 255
+    acceleration: 25
     assembly: bodyNC
     default: 0
     group: RightHand
@@ -283,7 +283,7 @@ motors:
     topic: feetechRarm
     transmission: 1
   RightMiddleFinger:
-    acceleration: 255
+    acceleration: 25
     assembly: bodyNC
     default: 0
     group: RightHand
@@ -306,7 +306,7 @@ motors:
     topic: feetechRarm
     transmission: 1
   RightPinkyFinger:
-    acceleration: 255
+    acceleration: 25
     assembly: bodyNC
     default: 0
     group: RightHand
@@ -329,7 +329,7 @@ motors:
     topic: feetechRarm
     transmission: 1
   RightRingFinger:
-    acceleration: 255
+    acceleration: 25
     assembly: bodyNC
     default: 0
     group: RightHand
@@ -352,7 +352,7 @@ motors:
     topic: feetechRarm
     transmission: 1
   RightShoulderPitch:
-    acceleration: 100
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: RightArm
@@ -371,11 +371,11 @@ motors:
       parser: {joint: R_Shoulder_Pitch, name: armsangles}
     protocol: 0
     sort_no: -99
-    speed: 1000
+    speed: 100
     topic: feetechRarm
     transmission: 1
   RightShoulderRoll:
-    acceleration: 100
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: RightArm
@@ -394,11 +394,11 @@ motors:
       parser: {joint: R_Shoulder_Roll, name: armsangles}
     protocol: 0
     sort_no: -98
-    speed: 1000
+    speed: 100
     topic: feetechRarm
     transmission: 0.01
   RightShoulderYaw:
-    acceleration: 200
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: RightArm
@@ -417,11 +417,11 @@ motors:
       parser: {joint: R_Shoulder_Yaw, name: armsangles}
     protocol: 0
     sort_no: -97
-    speed: 4000
+    speed: 100
     topic: feetechRarm
     transmission: 1
   RightThumbFinger:
-    acceleration: 255
+    acceleration: 25
     assembly: bodyNC
     default: 0
     group: RightHand
@@ -444,7 +444,7 @@ motors:
     topic: feetechRarm
     transmission: 1
   RightThumbRoll:
-    acceleration: 255
+    acceleration: 25
     assembly: bodyNC
     default: 0
     group: RightHand
@@ -467,7 +467,7 @@ motors:
     topic: feetechRarm
     transmission: 1
   RightWristPitch:
-    acceleration: 255
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: RightArm
@@ -486,11 +486,11 @@ motors:
       parser: {joint: R_Wrist_Pitch, name: armsangles}
     protocol: 0
     sort_no: -90
-    speed: 50
+    speed: 100
     topic: feetechRarm
     transmission: 1
   RightWristRoll:
-    acceleration: 255
+    acceleration: 15
     assembly: bodyNC
     default: 0
     group: RightArm
@@ -509,6 +509,6 @@ motors:
       parser: {joint: R_Wrist_Pitch, name: armsangles}
     protocol: 0
     sort_no: -89
-    speed: 50
+    speed: 100
     topic: feetechRarm
     transmission: 1
