@@ -84,6 +84,47 @@ class PanBacklash(object):
         return self.phi
 
 
+class TiltPolicy(object):
+
+
+    fy = 581.00597602
+    m = 0.4152
+
+
+    def __init__(self, m=None) -> None:
+        if m is not None:
+            self.m = m  # Slope
+        self.theta = 0   # Motor position
+        self.phi = 0  # Eye Position
+
+
+    def calc_cmd(self, delta_y, theta=None):      
+        # Calculations
+        if theta is None:
+            xi = self.phi/self.m
+        else:
+            xi = theta
+            self.phi = self.m * theta
+        delta_xi = math.degrees(math.atan(delta_y/self.fy))/self.m
+        theta_new = xi + delta_xi
+        phi_new = self.m*theta_new
+
+        # Variable Update
+        self.theta = theta_new
+        self.phi = phi_new
+        
+        return theta_new, phi_new
+
+    @property
+    def cmd(self):
+        return self.theta
+    
+
+    @property
+    def position(self):
+        return self.phi
+
+
 if __name__ == "__main__":
     # Constants
     m = 1.21  # slope
