@@ -4,7 +4,7 @@
 
 import time
 from .control import MultiMotorCtrl
-from .utils import ROSClient
+from .utils import ROSClient, sys_dict
 
 
 class Grace(object):
@@ -161,11 +161,14 @@ class Grace(object):
     def state(self):
         temp = self.lr_eyes_pan_tilt.state
         angles = (temp[0]['actual'], temp[1]['actual'], temp[2]['actual'])
-        if None in angles:
-            while(not None in angles):
-                temp = self.lr_eyes_pan_tilt.state
-                angles = (temp[0]['actual'], temp[1]['actual'], temp[2]['actual'])
-                print('Repeat')
+        ctr = 1
+        while(None in angles or any(filter(lambda x: (x>75 or x<-75), angles))):
+            temp = self.lr_eyes_pan_tilt.state
+            angles = (temp[0]['actual'], temp[1]['actual'], temp[2]['actual'])
+            if ctr == 100:
+                raise(Exception("Motor state timeout. Servo motors erroneous output"))
+            else:
+                ctr+=1
         self._state = angles
         return self._state 
     
