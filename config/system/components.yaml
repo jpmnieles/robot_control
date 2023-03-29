@@ -1,0 +1,13 @@
+limits:
+  left_eye: {
+    pan: {
+      min: -30,
+      max: 16,
+      unit: deg
+    },
+    tilt: {
+      min: -30,
+      max: 5,
+      unit: deg
+    } 
+  }
