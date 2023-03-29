@@ -146,3 +146,11 @@ with open(os.path.join(os.path.realpath(__file__), '../..', 'config/body/motors.
 motors_dict = {}
 motors_dict.update(head_dict['motors'])
 motors_dict.update(body_dict['motors'])
+
+
+# Loading System YAML Config File
+with open(os.path.join(os.path.realpath(__file__), '../..', 'config/system/components.yaml'), "r") as stream:
+    try:
+        sys_dict = yaml.safe_load(stream)
+    except yaml.YAMLError as error:
+        print(error)
