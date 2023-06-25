@@ -8,10 +8,10 @@ import math
 class PanBacklash(object):
 
 
-    fx = 581.06509638
-    m = 1.2
-    B = 5.3498
-    sigma = (0.5329, 0.3175, 1.2523)
+    fx = 569.4456315
+    m = 1.6328
+    B = 1.5
+    sigma = (0.1009, 0.8439, 1.057)
 
 
     def __init__(self, m=None, B=None, sigma:tuple=None, phi=None) -> None:
@@ -87,8 +87,8 @@ class PanBacklash(object):
 class TiltPolicy(object):
 
 
-    fy = 581.00597602
-    m = 0.4152
+    fy = 571.54490033
+    m = 0.3910
 
 
     def __init__(self, m=None) -> None:
