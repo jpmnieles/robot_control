@@ -93,7 +93,7 @@ if __name__ == "__main__":
             frame = left_cam.frame
             print("Left Eye Camera Shape:", frame.shape)
             date_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f") 
-            fn_str = 'results/' + date_str + '_left_eye.png'
+            fn_str = 'results/230529_left/' + date_str + '_left_eye.png'
             cv.imwrite(fn_str, frame)
             print("Saving Left Eye Camera Image to: ", fn_str)
         elif key == 114:  # letter r
@@ -102,7 +102,7 @@ if __name__ == "__main__":
             frame = right_cam.frame
             print("Right Eye Camera:", frame.shape)
             date_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f") 
-            fn_str = 'results/' + date_str + '_right_eye.png'
+            fn_str = 'results/230529_right/' + date_str + '_right_eye.png'
             cv.imwrite(fn_str, frame)
             print("Saving Right Eye Camera Image to: ", fn_str)
         elif key == 115:  # letter s
